@@ -1,17 +1,37 @@
-#include<iostream>
-#include<fstream>
-#include<cstring>
+#include <iostream>
+#include <fstream>
+#include <string>
 using namespace std;
-int main(){
+
+int main(int argc, char *argv[])
+{
     char temp[255];
-    std::string mystring;
-    ifstream filevao("1.txt");
-    while (!filevao.eof()){
-        filevao.getline(temp, 255);
-        mystring = std::string(temp);
-        std::cout << temp << std::endl;
+    string mystring;
+    ofstream filera;
+    ifstream filevao;
+
+    try
+    {
+        filevao.open(argv[1], ios::in);
+        if (filevao.fail())
+            throw "Error opening file!";
     }
-filevao.close();
+    catch (...)
+    {
+        cerr << argv[1]  << " could not be opened" << endl;
+        exit(1);
+    }
+
+    filera.open(argv[2], ios::out | ios::trunc);
+
+    while (!filevao.eof())
+    {
+        filevao.getline(temp, 255);
+        mystring = string(temp);
+    }
+
+    filevao.close();
+
 string ra[64]={
   "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
   
@@ -21,6 +41,7 @@ string ra[64]={
   
   " ","#"
   };
+
   string vao[64]={
   ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
   "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
@@ -34,18 +55,22 @@ string ra[64]={
    
    "/","........"
   };
-std::string phan_tach = " ";
+
+string phan_tach = " ";
 int pos = 0;
-str:string token;
-while ((pos = mystring.find(phan_tach)) != std::string::npos) {
+string token;
+
+while ((pos = mystring.find(phan_tach)) != string::npos) {
     token = mystring.substr(0, pos);
     for (int i = 0; i < 64; i++){
         if (token == vao[i]){
             token = ra[i];
-            cout << token;
+            filera << token;
         }
 
     }
     mystring.erase(0, pos + phan_tach.length());
 }
+filera.close();
+
 }
