@@ -6,8 +6,9 @@ using namespace std;
 
 bool FileExist1(const string &filename)
 {
-  ifstream f(filename.c_str());
-  return f.good();//Check whether the status of the stream is normal. Return true when the error status flags (eofbit, failbit and badbit) are not set
+    // Kiem tra file dau vao co ton tai khong
+    ifstream f(filename.c_str());
+    return f.good();//Check whether the status of the stream is normal. Return true when the error status flags (eofbit, failbit and badbit) are not set
 }
 
 int main(int argc, char *argv[])
@@ -30,10 +31,10 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-        // Warning: FILENAME already ...
+    // Warning: FILENAME already ...
     if (FileExist1(argv[2])) 
     {
-        cout << "Warning: " << argv[2];
+        cout << "Warning: " << argv[2] << " already exists. Do you wish to overwrite (y,n)? ";
         char yesNo;
         cin >> yesNo;
         if (yesNo != 'y')
@@ -61,7 +62,7 @@ string ra[64]={
   " ","#"
   };
 
-  string vao[64]={
+string vao[64]={
   ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
   "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
   "..-", "...-", ".--", "-..-", "-.--", "--..",
