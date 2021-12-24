@@ -1,7 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+
 using namespace std;
+
+bool FileExist1(const string &filename)
+{
+  ifstream f(filename.c_str());
+  return f.good();//Check whether the status of the stream is normal. Return true when the error status flags (eofbit, failbit and badbit) are not set
+}
 
 int main(int argc, char *argv[])
 {
@@ -12,17 +19,29 @@ int main(int argc, char *argv[])
 
     try
     {
+        // Error: FILENAME could not be opened
         filevao.open(argv[1], ios::in);
         if (filevao.fail())
-            throw "Error opening file!";
+            throw "could not be opened";
     }
-    catch (...)
+    catch (const char* &err)
     {
-        cerr << argv[1]  << " could not be opened" << endl;
+        cerr<< "Error: "<< argv[1]<< " "<< err<< endl;
         exit(1);
     }
 
+        // Warning: FILENAME already ...
+    if (FileExist1(argv[2])) 
+    {
+        cout << "Warning: " << argv[2];
+        char yesNo;
+        cin >> yesNo;
+        if (yesNo != 'y')
+            exit(1); 
+    }
+
     filera.open(argv[2], ios::out | ios::trunc);
+
 
     while (!filevao.eof())
     {
@@ -62,11 +81,18 @@ string token;
 
 while ((pos = mystring.find(phan_tach)) != string::npos) {
     token = mystring.substr(0, pos);
-    for (int i = 0; i < 64; i++){
-        if (token == vao[i]){
+    for (int i = 0; i < 64; i++)
+    {
+        if (token == vao[i])
+        {
             token = ra[i];
             filera << token;
         }
+        // else
+        // {
+        //     token = "*";
+        //     filera << token;
+        // }
 
     }
     mystring.erase(0, pos + phan_tach.length());
