@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include <cstring>
-
+#define ALL 65
 using namespace std;
 
 bool FileExist1(const string &filename)
@@ -14,6 +14,7 @@ bool FileExist1(const string &filename)
 
 bool checkIfMorse(const string& textInFile)
 {
+    // Kiem tra string tu file dau vao la morse hay text
     long i;
     for (i=0; i<textInFile.length(); i++)
     {
@@ -44,10 +45,10 @@ int main(int argc, char *argv[])
         cerr<< "Error: "<< argv[1]<< " "<< err<< endl;
         exit(1);
     }
+    // filevao.open("1.txt", ios::in);
     mystring = string((istreambuf_iterator<char>(filevao)), istreambuf_iterator<char>());
     cout << int(checkIfMorse(mystring)) << endl;
     filevao.close();
-
 
     // Warning: FILENAME already if no => exit
     if (FileExist1(argv[2])) 
@@ -59,20 +60,19 @@ int main(int argc, char *argv[])
             exit(1); 
     }
     filera.open(argv[2], ios::out | ios::trunc);
-    
-    
+    // filera.open("2.txt", ios::out | ios::trunc);
 
-    string ra[64]={
+    string ra[ALL]={
     "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
     
     "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
     
     "1","2","3","4","5","6","7","8","9","0",
     
-    " ","#"
+    " ","#", "."
     };
 
-    string vao[64]={
+    string vao[ALL]={
     ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
     "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
     "..-", "...-", ".--", "-..-", "-.--", "--..",
@@ -83,42 +83,41 @@ int main(int argc, char *argv[])
     
     ".----", "..---", "...--","....-", ".....", "-....", "--...", "---..", "----.", "-----",
     
-    "/","........"
+    "/","........", ".-.-.-"
     };
 
-    string phan_tach = " ";
     int pos = 0;
     string token;
     int line = 1;
 
-    while ((pos = mystring.find(phan_tach)) != string::npos) 
+    while ( (pos = mystring.find(" ")) != string::npos) 
     {
         token = mystring.substr(0, pos);
-        
-        for (int i = 0; i <= 64; i++)
+        int i;
+        for (i = 0; i <= ALL; i++)
         {
-            if ((token == vao[i]) && (i != 64))
+            if ((token == vao[i]) && (i != 65))
             {
                 token = ra[i];
                 filera << token;
                 break;
             }
-            else if ((i==64) && (token.c_str()[0] == '\n'))
-            {
-                token = "\n";
-                line++;
-                filera << token;
-            }
-            else if ((i==64) && (token.c_str()[0] != '\n')) 
+            else if ((i==ALL) && (token.c_str()[0] != '\n')) 
             {
                 filera << "*";
                 cerr << "Error: Invalid Morse code "<< token << " on line "<< line << endl;        
             }
-        }
-        if (token != "\n")
-            mystring.erase(0, pos + phan_tach.length());
-        else
-            mystring.erase(0, pos);
+        }    
+        if (token.c_str()[0] == '\n')
+            {
+                // mystring.insert(0," ");
+                token = "\n";
+                line++;
+                filera << token;
+                mystring.erase(1,2);
+                continue;
+            }
+        mystring.erase(0, pos+1);
     }
     filera.close();
 
