@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 
+#define MAX 500
+
 using namespace std;
 
 bool FileExist1(const string &filename)
@@ -13,7 +15,7 @@ bool FileExist1(const string &filename)
 
 int main(int argc, char *argv[])
 {
-    char temp[255];
+    char temp[MAX];
     string mystring;
     ofstream filera;
     ifstream filevao;
@@ -43,61 +45,61 @@ int main(int argc, char *argv[])
 
     filera.open(argv[2], ios::out | ios::trunc);
 
-
     while (!filevao.eof())
     {
-        filevao.getline(temp, 255);
+        filevao.getline(temp, MAX);
         mystring = string(temp);
     }
 
     filevao.close();
 
-string ra[64]={
-  "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
-  
-  "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-  
-  "1","2","3","4","5","6","7","8","9","0",
-  
-  " ","#"
-  };
+    string ra[64]={
+    "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+    
+    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
+    
+    "1","2","3","4","5","6","7","8","9","0",
+    
+    " ","#"
+    };
 
-string vao[64]={
-  ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
-  "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
-  "..-", "...-", ".--", "-..-", "-.--", "--..",
-  
+    string vao[64]={
     ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
-  "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
-  "..-", "...-", ".--", "-..-", "-.--", "--..",
-  
-   ".----", "..---", "...--","....-", ".....", "-....", "--...", "---..", "----.", "-----",
-   
-   "/","........"
-  };
+    "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
+    "..-", "...-", ".--", "-..-", "-.--", "--..",
+    
+        ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
+    "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
+    "..-", "...-", ".--", "-..-", "-.--", "--..",
+    
+    ".----", "..---", "...--","....-", ".....", "-....", "--...", "---..", "----.", "-----",
+    
+    "/","........"
+    };
 
-string phan_tach = " ";
-int pos = 0;
-string token;
+    string phan_tach = " ";
+    int pos = 0;
+    string token;
 
-while ((pos = mystring.find(phan_tach)) != string::npos) {
-    token = mystring.substr(0, pos);
-    for (int i = 0; i < 64; i++)
+    while ((pos = mystring.find(phan_tach)) != string::npos) 
     {
-        if (token == vao[i])
+        token = mystring.substr(0, pos);
+        for (int i = 0; i <= 64; i++)
         {
-            token = ra[i];
-            filera << token;
+            if ((token == vao[i]) && (i != 64))
+            {
+                token = ra[i];
+                filera << token;
+                break;
+            }
+            if (i==64)
+            {
+                filera << "*";
+            }
         }
-        // else
-        // {
-        //     token = "*";
-        //     filera << token;
-        // }
 
+        mystring.erase(0, pos + phan_tach.length());
     }
-    mystring.erase(0, pos + phan_tach.length());
-}
-filera.close();
+    filera.close();
 
 }
