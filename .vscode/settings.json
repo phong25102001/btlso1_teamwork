@@ -5,6 +5,7 @@
         "filesystem": "cpp",
         "istream": "cpp",
         "xstring": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "iterator": "cpp"
     }
 }
