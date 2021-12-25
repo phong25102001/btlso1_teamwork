@@ -16,11 +16,11 @@ bool FileExist1(const string &filename)
 
 bool checkIfMorse(const string& textInFile)
 {
-    int i;
-    for (i=0; i < textInFile.length(); i++)
+    long i;
+    for (i=0; i<textInFile.length(); i++)
     {
         char temp = char(textInFile[i]);
-        if ((temp != '.') || (temp != '/') || (temp != ' ') || (temp != '-') || (temp != '\n'))
+        if ((temp != '.') && (temp != '/') && (temp != ' ') && (temp != '-') && (temp != '\n') && (temp != '\0'))
             return false;
     }
     return true;
@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
         exit(1);
     }
     mystring = string((istreambuf_iterator<char>(filevao)), istreambuf_iterator<char>());
-    if (checkIfMorse(mystring))
-        cout << "chuan";
+    cout << int(checkIfMorse(mystring)) << endl;
     filevao.close();
+
 
     // Warning: FILENAME already if no => exit
     if (FileExist1(argv[2])) 
