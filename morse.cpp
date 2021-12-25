@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-#define MAX 500
+#define MAX 255
 
 using namespace std;
 
@@ -81,9 +81,11 @@ int main(int argc, char *argv[])
     int pos = 0;
     string token;
 
+    int line = 1;
     while ((pos = mystring.find(phan_tach)) != string::npos) 
     {
         token = mystring.substr(0, pos);
+        
         for (int i = 0; i <= 64; i++)
         {
             if ((token == vao[i]) && (i != 64))
@@ -92,12 +94,14 @@ int main(int argc, char *argv[])
                 filera << token;
                 break;
             }
-            if (i==64)
+            else if (i==64)
             {
                 filera << "*";
+                cerr << "Error: Invalid Morse code "<< token << "on line "<< line;
+                if (token.c_str()[0] == '\n')
+                    line++;
             }
         }
-
         mystring.erase(0, pos + phan_tach.length());
     }
     filera.close();
