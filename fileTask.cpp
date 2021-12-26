@@ -15,9 +15,12 @@ bool fileExist1(const string &filename)
 
 void openAndCheck(ifstream &filevao, char* name)
 {
+    
+    // xử lí lỗi Error: FILENAME could not be opened
+    // filevao: biến ifstream thử mở file vào
+    // name: tên file vào
     try
     {
-        // Error: FILENAME could not be opened
         filevao.open(name, ios::in);
         if (filevao.fail())
             throw "could not be opened";
@@ -31,6 +34,9 @@ void openAndCheck(ifstream &filevao, char* name)
 
 void openAndWarning(ofstream &filera, char* name)
 {
+    // xử lí file ra nếu đã tồn tại báo Warning: FILENAME already exists. Do you wish to overwrite (y,n)?
+    // filera: biến ofstream xác định filera nếu người dùng đồng ý ghi đè
+    // name: tên file đầu ra sau khi giải mã hoặc mã hóa morse code
     if (fileExist1(name)) 
     {
         cout << "Warning: " << name << " already exists. Do you wish to overwrite (y,n)? ";
