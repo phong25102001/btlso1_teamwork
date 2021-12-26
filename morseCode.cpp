@@ -92,22 +92,26 @@ void morse2text(string& mystring, ofstream &filera)
 void text2morse(string& mystring, ofstream &filera)
 {
     long length = mystring.length();
+    int line = 1;
     for ( int i = 0 ; i < length; i++)
     {
         int j;
         for (j = 0; j < ALL; j++)
         {
-            if ((mystring[i] == text[j].c_str()[0]) && (mystring[i] != '\n'))
+            if (mystring[i] == text[j].c_str()[0])
             {
                 filera << morse[j] << ' ';
                 break;
             }
-            else if (mystring[i] == '\n')
+        }
+        
+        if (mystring[i] == '\n')
             {
                 filera << "\n";
-                break;
+                line++;
             }
-        }
+        else if ((mystring[i] != '\n') && (j==ALL))
+            cerr << "Error: Unrecognised character " << mystring[i] << " on line "<< line<< '\n';        
     }
 }
 #endif

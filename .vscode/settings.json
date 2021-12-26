@@ -6,6 +6,8 @@
         "istream": "cpp",
         "xstring": "cpp",
         "xiosbase": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "iterator": "cpp",
+        "iostream": "cpp"
     }
 }

@@ -19,8 +19,12 @@ int main(int argc, char *argv[])
     openAndWarning(filera, argv[2]);
     if (checkIfMorse(mystring))
         morse2text(mystring, filera);
-    else 
+    else
+    {
+        filevao.open(argv[1], ios::in);
+        mystring = string((istreambuf_iterator<char>(filevao)), istreambuf_iterator<char>());
         text2morse(mystring, filera);
-    
+        filevao.close();
+    }
     filera.close();
 }
