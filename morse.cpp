@@ -14,13 +14,11 @@ int main(int argc, char *argv[])
     ifstream filevao;
 
     openAndCheck(filevao, argv[1]);
-    // filevao.open("1.txt", ios::in);
-    mystring = string((istreambuf_iterator<char>(filevao)), istreambuf_iterator<char>());
+    mystring = textFile2string(filevao);
     cout << int(checkIfMorse(mystring)) << endl;
     filevao.close();
 
     openAndWarning(filera, argv[2]);
-    // filera.open("2.txt", ios::out | ios::trunc);
     morse2text(mystring, filera);
     filera.close();
 }

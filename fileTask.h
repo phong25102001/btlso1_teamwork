@@ -3,8 +3,8 @@
 
 #include "fileTask.cpp"
 
-bool fileExist1(const string &filename);
-void openAndCheck(ifstream &filevao, char* name);
-void openAndWarning(ostream &filera, char* name);
-
+bool fileExist1(const string& );
+void openAndCheck(ifstream&, char*);
+void openAndWarning(ostream&, char*);
+string textFile2string(ifstream&);
 #endif

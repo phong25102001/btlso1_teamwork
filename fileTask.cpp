@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 bool fileExist1(const string &filename)
@@ -48,5 +49,10 @@ void openAndWarning(ofstream &filera, char* name)
     filera.open(name, ios::out | ios::trunc);
 }
 
+string textFile2string(ifstream& filevao)
+{
+    // chuyển toàn bộ dữ liệu của filevao thành string
+    return string((istreambuf_iterator<char>(filevao)), istreambuf_iterator<char>());
+}
 
 #endif

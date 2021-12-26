@@ -3,7 +3,7 @@
 
 #include "morseCode.cpp"
 
-bool checkIfMorse(const string& textInFile);
-void morse2text(string& mystring, ofstream &filera);
+bool checkIfMorse(const string&);
+void morse2text(string&, ofstream&);
 
 #endif

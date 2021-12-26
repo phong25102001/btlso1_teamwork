@@ -71,6 +71,7 @@ void morse2text(string& mystring, ofstream &filera)
             }
             else if ((i==ALL) && (token.c_str()[0] != '\n')) 
             {
+                //xử lí lỗi Error: Invalid Morse code...
                 filera << "*";
                 cerr << "Error: Invalid Morse code "<< token << " on line "<< line << endl;        
             }
@@ -84,7 +85,7 @@ void morse2text(string& mystring, ofstream &filera)
                 mystring.erase(0,1);
                 continue;
             }
-        mystring.erase(0, pos+1);
+        mystring.erase(0, pos+1); // xóa kí tự morse đã xử lí để tiến hành xử lí từ tiếp theo
     }
 }
 
