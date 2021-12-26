@@ -16,6 +16,7 @@ string text[ALL]=
   
   "1","2","3","4","5","6","7","8","9","0"," ","#",".","?","-",",",":"
 };
+
 string morse[ALL]=
 {
   ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
@@ -88,4 +89,25 @@ void morse2text(string& mystring, ofstream &filera)
     }
 }
 
+void text2morse(string& mystring, ofstream &filera)
+{
+    long length = mystring.length();
+    for ( int i = 0 ; i < length; i++)
+    {
+        int j;
+        for (j = 0; j < ALL; j++)
+        {
+            if ((mystring[i] == text[j].c_str()[0]) && (mystring[i] != '\n'))
+            {
+                filera << morse[j] << ' ';
+                break;
+            }
+            else if (mystring[i] == '\n')
+            {
+                filera << "\n";
+                break;
+            }
+        }
+    }
+}
 #endif

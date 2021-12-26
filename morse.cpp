@@ -13,11 +13,14 @@ int main(int argc, char *argv[])
     ifstream filevao;
 
     openAndCheck(filevao, argv[1]);
-    mystring = textFile2string(filevao);
-    cout << int(checkIfMorse(mystring)) << endl;
+    mystring = textFile2string(filevao); 
     filevao.close();
 
     openAndWarning(filera, argv[2]);
-    morse2text(mystring, filera);
+    if (checkIfMorse(mystring))
+        morse2text(mystring, filera);
+    else 
+        text2morse(mystring, filera);
+    
     filera.close();
 }
