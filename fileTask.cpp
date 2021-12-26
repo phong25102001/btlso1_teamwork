@@ -35,9 +35,11 @@ void openAndCheck(ifstream &filevao, char* name)
 
 void openAndWarning(ofstream &filera, char* name)
 {
-    // xử lí file ra nếu đã tồn tại báo Warning: FILENAME already exists. Do you wish to overwrite (y,n)?
-    // filera: biến ofstream xác định filera nếu người dùng đồng ý ghi đè
-    // name: tên file đầu ra sau khi giải mã hoặc mã hóa morse code
+    /* 
+    * xử lí file ra nếu đã tồn tại báo Warning: FILENAME already exists. Do you wish to overwrite (y,n)?
+    * filera: biến ofstream xác định filera nếu người dùng đồng ý ghi đè
+    * name: tên file đầu ra sau khi giải mã hoặc mã hóa morse code
+    */
     if (fileExist1(name)) 
     {
         cout << "Warning: " << name << " already exists. Do you wish to overwrite (y,n)? ";
