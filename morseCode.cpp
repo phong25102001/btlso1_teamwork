@@ -128,7 +128,7 @@ void text2morse(string& mystring, ofstream &filera)
         {
             // mã hóa text -> morse
 
-            if (mystring[i] == text[j].c_str()[0])
+            if ( (mystring[i] == text[j].c_str()[0]) && (text[j].c_str()[0] != '#'))
             {
                 filera << morse[j] << ' ';                                 // ngăn cách các chữ của file morse = dấu cách
                 break;
