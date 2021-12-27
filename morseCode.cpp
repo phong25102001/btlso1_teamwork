@@ -8,7 +8,7 @@
 using namespace std;
 
 // Định nghĩa khối dữ liệu text và morse phục vụ mã hóa và giải mã
-string text[ALL]=
+const string text[ALL]=
 {
   "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
   
@@ -17,7 +17,7 @@ string text[ALL]=
   "1","2","3","4","5","6","7","8","9","0"," ","#",".","?","-",",",":"
 };
 
-string morse[ALL]=
+const string morse[ALL]=
 {
   ".-", "-...", "-.-.", "-..",".", "..-.", "--.", "....", "..", ".---",
   "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-",
@@ -34,14 +34,16 @@ string morse[ALL]=
 
 bool checkIfMorse(const string& textInFile)
 {
-    // Kiểm tra các kí tự trong file textInFile có phải file morse không 
-    // => Nếu là file morse thì trả về true
-    // textInFile là dữ liệu của file sau khi đã chuyển thành dạng string
+    /* 
+    * Kiểm tra các kí tự trong chuỗi <textInFile> đọc từ file đầu vào có phải file morse không 
+    * => Nếu là file morse thì trả về true
+    * <textInFile> là dữ liệu của file sau khi đã chuyển thành dạng string
+    */
     long i;
     long length = textInFile.length();
     for (i=0; i<length; i++)
     {
-        // duyệt textInFile nếu gặp trường hợp ngoại lệ của mã morse thì trả về false
+        // duyệt <textInFile> nếu gặp trường hợp ngoại lệ của mã morse thì trả về false
         char temp = char(textInFile[i]);
         if ((temp != '.') && (temp != '/') && (temp != ' ') && (temp != '-') && (temp != '\n') && (temp != '\0'))
             return false;
@@ -51,7 +53,7 @@ bool checkIfMorse(const string& textInFile)
 
 void morse2text(string& mystring, ofstream &filera)
 {
-    // thủ tục thực hiện chuyển từ string lấy được từ morse file sang filera
+    // thủ tục thực hiện giải mã <mystring> (dữ liệu nhận được từ file morse) và ghi vào <filera>
     int pos = 0;
     string token;
     int line = 1;
@@ -82,7 +84,7 @@ void morse2text(string& mystring, ofstream &filera)
                 token = "\n";
                 line++;
                 filera << token;
-                mystring.erase(0,1); // xóa dấu xuống dòng
+                mystring.erase(0,1); // chỉ xóa dấu xuống dòng
                 continue; // bỏ qua lệnh xoá token bên dưới
             }
         mystring.erase(0, pos+1); // xóa kí tự morse đã xử lí để tiến hành xử lí từ tiếp theo
@@ -91,26 +93,30 @@ void morse2text(string& mystring, ofstream &filera)
 
 void text2morse(string& mystring, ofstream &filera)
 {
+    // thủ tục mã hóa <mystring> (dữ liệu nhận được từ file text) và ghi dữ liệu được mã hóa vào <filera>
     long length = mystring.length();
     int line = 1;
-    for ( int i = 0 ; i < length; i++)
+
+    for ( int i = 0 ; i < length; i++) // duyệt chuỗi mystring
     {
         int j;
-        for (j = 0; j < ALL; j++)
+        for (j = 0; j < ALL; j++) 
         {
+            // mã hóa
             if (mystring[i] == text[j].c_str()[0])
             {
-                filera << morse[j] << ' ';
+                filera << morse[j] << ' '; // ngăn cách các token của file morse = dấu cách
                 break;
             }
         }
         
         if (mystring[i] == '\n')
             {
+                // xử lí khi có dấu xuống dòng
                 filera << "\n";
                 line++;
             }
-        else if ((mystring[i] != '\n') && (j==ALL))
+        else if ((mystring[i] != '\n') && (j==ALL)) // xử lí ngoại lệ không mã hóa được
             cerr << "Error: Unrecognised character " << mystring[i] << " on line "<< line<< '\n';        
     }
 }

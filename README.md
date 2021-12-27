@@ -1,4 +1,6 @@
 # btlso1_teamwork
 
-bien dich = cmd: >>g++ -o morse.exe morse.cpp
-chay file = cmd: >>morse.exe 1.txt 2.txt
+biên dịch = cmd:
+>>g++ -o morse.exe morse.cpp
+chạy file = cmd:
+>>morse inMorse.txt outText.txt

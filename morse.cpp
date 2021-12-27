@@ -21,10 +21,12 @@ int main(int argc, char *argv[])
         morse2text(mystring, filera);
     else
     {
+        // Trường hợp file vào là file text
+        // cần xử lí riêng vì xử lí file morse phải thêm dấu cách mà text thì không
         filevao.open(argv[1], ios::in);
         mystring = string((istreambuf_iterator<char>(filevao)), istreambuf_iterator<char>());
-        text2morse(mystring, filera);
         filevao.close();
+        text2morse(mystring, filera);
     }
     filera.close();
 }
