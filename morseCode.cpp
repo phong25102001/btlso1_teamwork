@@ -130,7 +130,10 @@ void text2morse(string& mystring, ofstream &filera)
 
             if ( (mystring[i] == text[j].c_str()[0]) && (text[j].c_str()[0] != '#'))
             {
-                filera << morse[j] << ' ';                                 // ngăn cách các chữ của file morse = dấu cách
+                if (mystring[i+1] != '\n')
+                    filera << morse[j] << ' ';                             // ngăn cách các chữ của file morse = dấu cách
+                else                                 
+                    filera << morse[j];                                    // nếu chữ tiếp theo là \n thì không cần dấu cách
                 break;
             }
         }
